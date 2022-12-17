@@ -1,7 +1,6 @@
 package com.skypower.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +9,12 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+		
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public void save (ApplicationUser user) {
-//		String password = user.getPassword();
-//		user.setPassword(new BCryptPasswordEncoder().encode(password));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
-	}
-	
+	}	
 }

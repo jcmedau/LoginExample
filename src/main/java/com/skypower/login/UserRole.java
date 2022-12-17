@@ -22,20 +22,13 @@ public class UserRole implements GrantedAuthority, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long roleId;
 
-//	@Enumerated(EnumType.STRING)
+	@Column (length = 20, unique = true, nullable = false)
 	private String role;
 
-//	@Column (length = 10)
-//	private String display;
-		
 	@Override
 	public String getAuthority() {
 		return role;
 	}
-
-//	public String getDisplay() {
-//		return display;
-//	}
 
 	public Long getId() {
 		return roleId;
@@ -44,18 +37,13 @@ public class UserRole implements GrantedAuthority, Serializable {
 	public String getRole() {
 		return role;
 	}
-
-//	public void setDisplay(String display) {
-//		this.display = display;
-//	}
-
+	
 	public void setId(Long id) {
 		this.roleId = id;
 	}
 
 	public void setRole(String role) {
 		this.role = role;
-//		this.display = role.getDisplay();
 	}
 
 	@Override

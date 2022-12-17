@@ -14,5 +14,4 @@ public enum Role {
 	public String getDisplay() {
 		return display;
 	}
-
 }

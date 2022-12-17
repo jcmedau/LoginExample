@@ -37,8 +37,9 @@ public class ApplicationUser implements Serializable {
 	@Column (length = 64)
 	private String password;
 	
-	@Column (length = 50)
+	@Column (length = 50, unique = true, nullable = false)
 	private String email;
+	
 	private Boolean isEnabled;
 	private Date expiryDate;
 	

@@ -3,6 +3,7 @@ package com.skypower.login.test;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.skypower.login.ApplicationUser;
 import com.skypower.login.Role;
@@ -18,7 +19,8 @@ public class MyTests {
 	
 	@Autowired
 	UserService userService;
-
+	
+	
 	@Test
 	public void createRoles() {
 		
@@ -48,6 +50,8 @@ public class MyTests {
 		adminUser.setIsEnabled(true);
 		adminUser.addRole(userRoleService.findByName("USER"));
 		adminUser.addRole(userRoleService.findByName("ADMIN"));
+		
+		System.out.println("Vou salvar...");
 		
 		userService.save(simpleUser);
 		userService.save(adminUser);

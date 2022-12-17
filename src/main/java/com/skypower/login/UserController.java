@@ -2,10 +2,7 @@ package com.skypower.login;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
@@ -15,17 +12,17 @@ public class UserController {
 		return "index.html";
 	}
 	
-	@GetMapping("/login")
-	public String showLoginPage(Model model) {
-		UserCredentials credentials = new UserCredentials();
-		model.addAttribute(credentials);
-		return "login.html";
-	}
-	
-	@PostMapping(value = "login")
-	public String receiveCredentials (@ModelAttribute ("userCredentials") UserCredentials credentials) {
-		return "index.html";
-	}
+//	@GetMapping("/login")
+//	public String showLoginPage(Model model) {
+//		UserCredentials credentials = new UserCredentials();
+//		model.addAttribute(credentials);
+//		return "login.html";
+//	}
+//	
+//	@PostMapping(value = "login")
+//	public String receiveCredentials (@ModelAttribute ("userCredentials") UserCredentials credentials) {
+//		return "index.html";
+//	}
 	
 	@GetMapping("/welcome")
 	@PreAuthorize("hasAuthority('USER')")
