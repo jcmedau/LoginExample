@@ -1,4 +1,4 @@
-package com.skypower.login;
+package com.skypower.login.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

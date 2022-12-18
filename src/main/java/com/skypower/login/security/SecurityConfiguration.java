@@ -1,4 +1,4 @@
-package com.skypower.login;
+package com.skypower.login.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.skypower.login.user.UserDetailsServiceImpl;
+
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity	// this line is required to enable @PreAuthorize on the Controller methods 
 public class SecurityConfiguration {
 	
 	private final UserDetailsServiceImpl userDetailsServiceImpl;
@@ -26,21 +28,27 @@ public class SecurityConfiguration {
     	return http
     			.authorizeHttpRequests(auth -> {
     				auth.requestMatchers("/").permitAll();    	
-//    				auth.requestMatchers("/login.html").permitAll(); 
-//    				auth.requestMatchers("/admin/**").hasRole("ADMIN");
-//    				auth.requestMatchers("/user/**").hasRole("USER");
     				auth.anyRequest().authenticated();
-    			})
-    			.formLogin(Customizer.withDefaults())    			
+    			})    			
+    			.logout()
+    				.permitAll().clearAuthentication(true)
+    				.logoutSuccessUrl("/")
+    			.and()
+    			.formLogin(Customizer.withDefaults())   
     			.userDetailsService(userDetailsServiceImpl)
-    			.httpBasic(Customizer.withDefaults())
+    			.httpBasic(Customizer.withDefaults())    			
     			.build();
     }
     
+    /**
+     * This PasswordEncoder is used to login and also to encrypt the password before saving the user to the database.
+     * The UserService class uses it.
+     */
+       
     @Bean
     PasswordEncoder passwordEncoder() {
     	return new BCryptPasswordEncoder();
-//    	return NoOpPasswordEncoder.getInstance();
+//    	return NoOpPasswordEncoder.getInstance();	// switch lines comments to use non-encrypted passwords in the database
     }
 }
 

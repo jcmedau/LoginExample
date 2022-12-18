@@ -1,4 +1,4 @@
-package com.skypower.login;
+package com.skypower.login.role;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.skypower.login;
+package com.skypower.login.user;
 
 import java.util.Collection;
 
@@ -7,11 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class SecurityUser implements UserDetails {
 	
-	private ApplicationUser user;
+	private User user;
 	
-	public SecurityUser (ApplicationUser user) {
+	public SecurityUser (User user) {
 		this.user = user;	
-		System.out.println("novo user " + user.getRoles());
 	}
 
 	@Override

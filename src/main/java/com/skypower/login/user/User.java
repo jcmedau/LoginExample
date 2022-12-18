@@ -1,9 +1,11 @@
-package com.skypower.login;
+package com.skypower.login.user;
 
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.skypower.login.role.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +21,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table (name = "users")
-public class ApplicationUser implements Serializable {
+public class User implements Serializable {
 		
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +52,7 @@ public class ApplicationUser implements Serializable {
 	inverseJoinColumns = @JoinColumn (name = "role_id"))
 	private List<UserRole> roles;
 	
-	public ApplicationUser() {
+	public User() {
 		this.roles = new ArrayList<UserRole>();
 	}
 	

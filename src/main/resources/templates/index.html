@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Front Page</title>
 </head>
 <body>
@@ -10,5 +10,11 @@
 <p>Click <a href="/login">HERE</a> to login.</p>
 <p>Click <a href="/welcome">HERE</a> to go to the welcome page.</p>
 <p>Click <a href="/restricted">HERE</a> to go to admin page.</p>
+<p>
+	<form th:action="@{/logout}" method= "post" th:hidden="true">
+		<input type="submit" value = "logout" />
+	</form>
+	<a class = "nav-link" href="/logout">Logout</a>
+</p>
 </body>
 </html>

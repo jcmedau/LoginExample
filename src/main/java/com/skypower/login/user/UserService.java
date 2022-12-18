@@ -1,4 +1,4 @@
-package com.skypower.login;
+package com.skypower.login.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,7 +13,7 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	public void save (ApplicationUser user) {
+	public void save (User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}	

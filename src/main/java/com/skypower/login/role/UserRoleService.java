@@ -1,4 +1,4 @@
-package com.skypower.login;
+package com.skypower.login.role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

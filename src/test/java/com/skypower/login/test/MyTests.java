@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.skypower.login.ApplicationUser;
-import com.skypower.login.Role;
-import com.skypower.login.UserRole;
-import com.skypower.login.UserRoleService;
-import com.skypower.login.UserService;
+import com.skypower.login.role.Role;
+import com.skypower.login.role.UserRole;
+import com.skypower.login.role.UserRoleService;
+import com.skypower.login.user.User;
+import com.skypower.login.user.UserService;
 
 @SpringBootTest
 public class MyTests {
@@ -34,7 +34,7 @@ public class MyTests {
 	
 	@Test
 	public void createUsers() {
-		ApplicationUser simpleUser = new ApplicationUser();
+		User simpleUser = new User();
 		simpleUser.setEmail("user");
 		simpleUser.setFirstName("Simple");
 		simpleUser.setLastName("User");
@@ -42,7 +42,7 @@ public class MyTests {
 		simpleUser.setIsEnabled(true);
 		simpleUser.addRole(userRoleService.findByName("USER"));
 		
-		ApplicationUser adminUser = new ApplicationUser();
+		User adminUser = new User();
 		adminUser.setEmail("admin");
 		adminUser.setFirstName("Admin");
 		adminUser.setLastName("Super");
