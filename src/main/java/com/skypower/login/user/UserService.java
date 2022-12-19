@@ -22,6 +22,10 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	public User findByEmail (String email) {
+		return userRepository.findByEmail(email).get();
+	}	
+	
 	public void save (User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);

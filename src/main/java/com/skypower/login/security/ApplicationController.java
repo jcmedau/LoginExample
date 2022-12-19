@@ -1,7 +1,6 @@
 package com.skypower.login.security;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -34,10 +33,10 @@ public class ApplicationController {
 		return "/login.html";
 	}
 	
-//	@GetMapping("/logout")
-//	public String doLogout() {
-//		return "/index.html";
-//	}
+	@GetMapping("/logout")
+	public String doLogout() {
+		return "/logout.html";
+	}
 	
 	@GetMapping("/welcome")
 	@PreAuthorize("hasAuthority('USER')")	// does not work with "hasRole('USER')"

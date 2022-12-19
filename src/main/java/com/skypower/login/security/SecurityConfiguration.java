@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.skypower.login.user.UserDetailsServiceImpl;
 
@@ -25,40 +26,41 @@ import com.skypower.login.user.UserDetailsServiceImpl;
 @EnableWebSecurity
 @EnableMethodSecurity	// this line is required to enable @PreAuthorize on the Controller methods 
 public class SecurityConfiguration {
-	
+			
 	private final UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	public SecurityConfiguration (UserDetailsServiceImpl userDetailsServiceImpl) {
 		this.userDetailsServiceImpl = userDetailsServiceImpl;
 	}
 		
+	/**
+	 * This Bean configures login with a custom form, logout with a custom page and free access to
+	 * the home page index.html
+	 *
+	 */
+	
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
     	return http
     			.authorizeHttpRequests(auth -> {
-    				auth.requestMatchers("/").permitAll();    	
+    				auth.requestMatchers("/", "/logout", "/end").permitAll();   
     				auth.anyRequest().authenticated();
-    			})    			
-    			
-    			// This block must be activated to allow a custom login form
-    			// but it makes logout inoperative
-    			
-//    			.formLogin()
-//					.loginPage("/login")
-//					.permitAll()			
-//				.and()
-    			
-    			.logout()
-    				.permitAll().clearAuthentication(true)
-    				.logoutSuccessUrl("/")
-//    				.logoutUrl("/")
-//    				.invalidateHttpSession(true)
-    			.and()    			
-    			
-    			
-    			.formLogin(Customizer.withDefaults())   
-    			.userDetailsService(userDetailsServiceImpl)
-    			.httpBasic(Customizer.withDefaults())    			
+    			})    		
+    			.formLogin()
+					.loginPage("/login")
+					.permitAll()			
+				.and()
+				.formLogin(Customizer.withDefaults()) 
+    			    			
+    			.logout() 
+    		    	.clearAuthentication(true)
+    		    	.logoutRequestMatcher(new AntPathRequestMatcher("/end")) 
+    		        .logoutSuccessUrl("/logout") 
+    		        .deleteCookies("JSESSIONID")
+    		        .invalidateHttpSession(true)
+    			.and()   
+    				.userDetailsService(userDetailsServiceImpl)
+    				.httpBasic(Customizer.withDefaults())    			
     			.build();
     }
     
