@@ -11,6 +11,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Copyright 2022 J. C. Medau All rights reserved.
+ *
+ * Class responsible for Users Roles
+ *
+ * @author J. C. Medau
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "roles")
 public class UserRole implements GrantedAuthority, Serializable {
@@ -24,7 +33,15 @@ public class UserRole implements GrantedAuthority, Serializable {
 
 	@Column (length = 20, unique = true, nullable = false)
 	private String role;
+	
+	public UserRole() {
+		
+	}
 
+	public UserRole (String role) {
+		this.role = role;
+	}	
+	
 	@Override
 	public String getAuthority() {
 		return role;

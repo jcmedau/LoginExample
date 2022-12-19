@@ -1,5 +1,15 @@
 package com.skypower.login.role;
 
+/**
+ * Copyright 2022 J. C. Medau All rights reserved.
+ *
+ * Enumerator used to define all type of users with
+ * different privileges levels
+ *
+ * @author J. C. Medau
+ * @version 1.0
+ */
+
 public enum Role {
 	
 	ADMIN ("Admin"),

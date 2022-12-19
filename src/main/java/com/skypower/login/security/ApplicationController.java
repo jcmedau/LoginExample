@@ -1,8 +1,25 @@
 package com.skypower.login.security;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ * Copyright 2022 J. C. Medau All rights reserved.
+ *
+ * Controller responsible for page access and definition of different types
+ * of Users authorizations
+ * 
+ * During tests, the use of {@code @PreAuthorize("hasRole('ANY_ROLE)")} did
+ * not work and was replaced by {@code @PreAuthorize("hasAuthority'ANY_ROLE)")}
+ * 
+ * The annotation {@Code @EnableMethodSecurity} needs to be used on the
+ * SecurityConfiguration Class to make the authorizations work.
+ *
+ * @author J. C. Medau
+ * @version 1.0
+ */
 
 @Controller
 public class ApplicationController {
@@ -11,6 +28,16 @@ public class ApplicationController {
 	public String showHomePage() {
 		return "index.html";
 	}
+	
+	@GetMapping("/login")
+	public String doLogin() {
+		return "/login.html";
+	}
+	
+//	@GetMapping("/logout")
+//	public String doLogout() {
+//		return "/index.html";
+//	}
 	
 	@GetMapping("/welcome")
 	@PreAuthorize("hasAuthority('USER')")	// does not work with "hasRole('USER')"

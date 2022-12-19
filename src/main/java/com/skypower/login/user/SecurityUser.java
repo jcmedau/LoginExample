@@ -5,6 +5,15 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * Copyright 2022 J. C. Medau All rights reserved.
+ *
+ * Implementation of the UserDetails Interface based on User Class
+ *
+ * @author J. C. Medau
+ * @version 1.0
+ */
+
 public class SecurityUser implements UserDetails {
 	
 	private User user;
@@ -55,8 +64,4 @@ public class SecurityUser implements UserDetails {
 				+ isAccountNonExpired() + ", isAccountNonLocked()=" + isAccountNonLocked()
 				+ ", isCredentialsNonExpired()=" + isCredentialsNonExpired() + ", isEnabled()=" + isEnabled() + "]";
 	}
-	
-	
-	
-	
 }

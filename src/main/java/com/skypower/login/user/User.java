@@ -18,6 +18,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+/**
+ * Copyright 2022 J. C. Medau All rights reserved.
+ *
+ * Class responsible for the User entity
+ *
+ * @author J. C. Medau
+ * @version 1.0
+ */
 
 @Entity
 @Table (name = "users")
@@ -54,6 +62,17 @@ public class User implements Serializable {
 	
 	public User() {
 		this.roles = new ArrayList<UserRole>();
+	}
+	
+	public User(String firstName, String lastName, String password, String email,
+			boolean isEnabled, UserRole role) {
+		this.roles = new ArrayList<UserRole>();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
+		this.isEnabled = isEnabled;
+		addRole(role);
 	}
 	
 	public void addRole(UserRole role) {
