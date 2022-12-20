@@ -17,6 +17,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -51,6 +53,8 @@ public class User implements Serializable {
 	private String email;
 	
 	private Boolean isEnabled;
+	
+	@Temporal(TemporalType.DATE)
 	private Date expiryDate;
 	
 	
@@ -65,14 +69,24 @@ public class User implements Serializable {
 	}
 	
 	public User(String firstName, String lastName, String password, String email,
-			boolean isEnabled, UserRole role) {
-		this.roles = new ArrayList<UserRole>();
+			boolean isEnabled, UserRole role, Date expiryDate) {
+		this();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 		this.isEnabled = isEnabled;
 		addRole(role);
+		this.expiryDate = expiryDate;
+	}
+	
+	
+	public String getAllRoles() {
+		StringBuffer sb = new StringBuffer();
+		for (UserRole userRole : roles) {
+			sb.append(userRole.getRole() + " ");
+		}
+		return sb.toString().trim().replace(" " , ", ");
 	}
 	
 	public void addRole(UserRole role) {

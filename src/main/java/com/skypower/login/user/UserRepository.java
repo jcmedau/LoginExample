@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository <User, Long> {
 	
-	@Query ("SELECT u FROM User u WHERE u.email = ?1")
-	Optional<User> findByEmail (String email);
+	@Query ("SELECT u FROM User u WHERE u.email = ?1 AND u.isEnabled = true AND u.expiryDate >= CURRENT_DATE")
+	Optional<User> findActiveUser (String email);
 
 }

@@ -8,14 +8,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>Please sign in</title>
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css"
-	rel="stylesheet" />
+<link href="/css/style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
+<h1>System Login</h1>
 	<div class="container">
 		<form action="#" th:action="@{/login}" method="post"
 			th:object="${userCredentials}">
@@ -36,5 +32,7 @@
 			</fieldset>
 		</form>
 	</div>
+	
+	<p>Click <a href="/">here</a> to go back to initial page </p>
 </body>
 </html>

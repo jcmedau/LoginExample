@@ -1,5 +1,7 @@
 package com.skypower.login.test;
 
+import java.sql.Date;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,6 +44,7 @@ public class MyTests {
 		simpleUser.setPassword("123");
 		simpleUser.setIsEnabled(true);
 		simpleUser.addRole(userRoleService.findByName("USER"));
+		simpleUser.setExpiryDate(Date.valueOf("2050-12-31"));
 
 		User adminUser = new User();
 		adminUser.setEmail("admin");
@@ -51,11 +54,20 @@ public class MyTests {
 		adminUser.setIsEnabled(true);
 		adminUser.addRole(userRoleService.findByName("USER"));
 		adminUser.addRole(userRoleService.findByName("ADMIN"));
+		adminUser.setExpiryDate(Date.valueOf("2050-12-31"));
 
 		System.out.println("Vou salvar...");
 
 		userService.save(simpleUser);
 		userService.save(adminUser);
 
+	}
+	
+	@Test
+	public void newUsers() {
+		User inactive = new User("Inactive", "User", "123", "inac", false, userRoleService.findByName("USER"), Date.valueOf("2050-12-31"));
+		User expired = new User("Expired", "User", "234", "exp", true, userRoleService.findByName("USER"), Date.valueOf("2022-12-31"));
+		userService.save(expired);
+		userService.save(inactive);
 	}
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 @Controller
-public class ApplicationController {
+public class SecurityController {
 	
 	@GetMapping("/")
 	public String showHomePage() {
@@ -39,7 +39,7 @@ public class ApplicationController {
 	}
 	
 	@GetMapping("/welcome")
-	@PreAuthorize("hasAuthority('USER')")	// does not work with "hasRole('USER')"
+	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")	// does not work with "hasRole('USER')"
 	public String showWelcomePage() {
 		return "/user/welcome.html";
 	}

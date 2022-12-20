@@ -1,5 +1,7 @@
 package com.skypower.login.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,12 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	
 	public User findByEmail (String email) {
-		return userRepository.findByEmail(email).get();
+		return userRepository.findActiveUser(email).get();
 	}	
+	
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
 	
 	public void save (User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));

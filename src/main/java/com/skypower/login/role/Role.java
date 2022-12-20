@@ -13,7 +13,12 @@ package com.skypower.login.role;
 public enum Role {
 	
 	ADMIN ("Admin"),
-	USER ("User");
+	USER ("User"),
+	TCI ("TCI"),
+	TCE ("TCE"),
+	RECORDS ("Records"),
+	SCHEDULE ("Schedule"),
+	;
 	
 	String display;
 	

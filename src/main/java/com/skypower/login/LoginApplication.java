@@ -1,5 +1,8 @@
 package com.skypower.login;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,7 +42,7 @@ public class LoginApplication {
 			UserRole firstRole = new UserRole(Role.ADMIN.name()); 
 			if (roles.count() == 0) {
 				roles.save(firstRole);
-				users.save(new User("Super", "Administrator", "456", "sudo", true, firstRole));
+				users.save(new User("Super", "Administrator", "456", "sudo", true, firstRole, Date.valueOf(LocalDate.now())));
 			}
 		};
 	}
