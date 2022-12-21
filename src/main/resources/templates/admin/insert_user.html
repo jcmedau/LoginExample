@@ -41,10 +41,13 @@
 			<input type="date" th:field="*{expiryDate}" /><br/>
 			
 			
-<!-- 			<th:block th:each="role, i : ${allRoles}"> -->
-<!-- 			<label>Active</label> -->
-<!-- 			<input type="checkbox" th:field="*{allRoles.count}" /><br/> -->
-<!-- 			</th:block> -->
+			<th:block th:each="role, i : ${allRoles}">
+				<label th:text="${role.getRole()}">Role</label>
+				
+<!-- 				the array index needs t be i - 1 because Tymeleaf array count starts at 1 -->
+				
+				<input type="checkbox"  th:field="*{hasEachRole[__${i.count-1}__]}" /><br/>
+			</th:block>
 						
 			<button type="submit">Register</button>		
 		</form>

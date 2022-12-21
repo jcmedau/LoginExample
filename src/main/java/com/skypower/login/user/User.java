@@ -19,6 +19,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -64,6 +65,9 @@ public class User implements Serializable {
 	inverseJoinColumns = @JoinColumn (name = "role_id"))
 	private List<UserRole> roles;
 	
+	@Transient
+	private Boolean[] hasEachRole;
+	
 	public User() {
 		this.roles = new ArrayList<UserRole>();
 	}
@@ -80,7 +84,10 @@ public class User implements Serializable {
 		this.expiryDate = expiryDate;
 	}
 	
-	
+	public void addRole(UserRole role) {
+		roles.add(role);
+	}
+
 	public String getAllRoles() {
 		StringBuffer sb = new StringBuffer();
 		for (UserRole userRole : roles) {
@@ -88,72 +95,76 @@ public class User implements Serializable {
 		}
 		return sb.toString().trim().replace(" " , ", ");
 	}
+
+	public String getEmail() {
+		return email;
+	}
 	
-	public void addRole(UserRole role) {
-		roles.add(role);
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public Date getExpiryDate() {
+		return expiryDate;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public Boolean[] getHasEachRole() {
+		return hasEachRole;
 	}
 
 	public Boolean getIsEnabled() {
 		return isEnabled;
 	}
 
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public Date getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
+	public String getPassword() {
+		return password;
 	}
 
 	public List<UserRole> getRoles() {
 		return roles;
 	}
 
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setHasEachRole(Boolean[] hasEachRole) {
+		this.hasEachRole = hasEachRole;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void setRoles(List<UserRole> roles) {
 		this.roles = roles;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 }
