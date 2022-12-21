@@ -58,8 +58,8 @@ public class MyTests {
 
 		System.out.println("Vou salvar...");
 
-		userService.save(simpleUser);
-		userService.save(adminUser);
+		userService.encodePasswordAndSave(simpleUser);
+		userService.encodePasswordAndSave(adminUser);
 
 	}
 	
@@ -67,7 +67,7 @@ public class MyTests {
 	public void newUsers() {
 		User inactive = new User("Inactive", "User", "123", "inac", false, userRoleService.findByName("USER"), Date.valueOf("2050-12-31"));
 		User expired = new User("Expired", "User", "234", "exp", true, userRoleService.findByName("USER"), Date.valueOf("2022-12-31"));
-		userService.save(expired);
-		userService.save(inactive);
+		userService.encodePasswordAndSave(expired);
+		userService.encodePasswordAndSave(inactive);
 	}
 }

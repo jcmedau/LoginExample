@@ -34,6 +34,11 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	public void encodePasswordAndSave (User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		saveOnly(user);
+	}
+	
 	public List<User> findAll(String column) {
 		if (column == null) column = "firstName";
 		return userRepository.findAll(Sort.by(Direction.ASC, column));
@@ -41,14 +46,13 @@ public class UserService {
 	
 	public User findByEmail (String email) {
 		return userRepository.findActiveUser(email).get();
-	}
+	}	
 	
 	public User findById (Long id) {
 		return userRepository.findById(id).get();
-	}	
+	}
 	
-	public void save (User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+	public void saveOnly (User user) {
 		userRepository.save(user);
 	}
 }

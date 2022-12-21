@@ -38,7 +38,7 @@ public class UserController {
 
 	@GetMapping("/admin/allUsers")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String allUsers(@RequestParam(value = "column", required = false) String column, Model model) {
+	public String showAllUsers(@RequestParam(value = "column", required = false) String column, Model model) {
 		model.addAttribute("users", userService.findAll(column));
 		return "/admin/all_users.html";
 	}
@@ -72,7 +72,7 @@ public class UserController {
 				user.addRole(allRoles.get(i));
 			}
 		}
-		userService.save(user);
+		userService.encodePasswordAndSave(user);
 		return "redirect:/admin/allUsers";
 	}
 		
@@ -106,7 +106,30 @@ public class UserController {
 				user.addRole(allRoles.get(i));
 			}
 		}
-		userService.save(user);
+		userService.saveOnly(user);
+		return "redirect:/admin/allUsers";
+	}
+	
+	/*
+	 * The next two methods are responsible for the user password reset
+	 */
+	
+	@GetMapping("admin/reset/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String showResetForm (@PathVariable("userId") Long id, Model model) {
+		User user = userService.findById(id);		
+		model.addAttribute("user", user);		
+		return "admin/reset_password.html";
+	}
+	
+	@PostMapping ("admin/reset/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String doReset(@ModelAttribute("user") User user) {
+		String newPassword = user.getPassword();
+		Long id = user.getUserId();
+		User retrievedUser = userService.findById(id);
+		retrievedUser.setPassword(newPassword);
+		userService.encodePasswordAndSave(retrievedUser);
 		return "redirect:/admin/allUsers";
 	}
 	

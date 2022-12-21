@@ -23,7 +23,7 @@
 		<h1>User Registration</h1>
 		<form action="#" th:action="@{insert}" method="post" th:object="${user}">
 			<label>First Name:</label>
-			<input type="text" th:field="*{firstName}" /><br/>
+			<input type="text" th:field="*{firstName}" autofocus/><br/>
 			
 			<label>Last Name:</label>
 			<input type="text" th:field="*{lastName}" /><br/>

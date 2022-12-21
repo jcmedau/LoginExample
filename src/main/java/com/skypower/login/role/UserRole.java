@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,38 +33,66 @@ public class UserRole implements GrantedAuthority, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long roleId;
 
-	@Column (length = 20, unique = true, nullable = false)
+	@Column (name = "role_name", length = 20, unique = true, nullable = false)
 	private String role;
 	
+	/**
+	 * No arguments constructor
+	 */
 	public UserRole() {
 		
 	}
 
+	/**
+	 * Constructor
+	 * @param String representing the Role
+	 */
 	public UserRole (String role) {
 		this.role = role;
 	}	
 	
+	/**
+	 * This method overrides the {@code getAuthority()} method from the
+	 * {@code GRantedAuthority} Interface
+	 */
 	@Override
 	public String getAuthority() {
 		return role;
 	}
 
+	/**
+	 * @return the UserRole id
+	 */
 	public Long getId() {
 		return roleId;
 	}
 
+	/**
+	 * @return the Role name
+	 */
 	public String getRole() {
 		return role;
 	}
 	
+	/**
+	 * Set the UserRole id
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.roleId = id;
 	}
 
+	/**
+	 * Set the UserRole name
+	 * @param role
+	 */
 	public void setRole(String role) {
 		this.role = role;
 	}
 
+	/**
+	 * Return a String representation of the UserRole
+	 */
 	@Override
 	public String toString() {
 		return role;

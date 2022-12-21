@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.skypower.login.user.UserDetailsServiceImpl;
+import com.skypower.login.user.CustomUserDetailsService;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -27,9 +27,9 @@ import com.skypower.login.user.UserDetailsServiceImpl;
 @EnableMethodSecurity	// this line is required to enable @PreAuthorize on the Controller methods 
 public class SecurityConfiguration {
 			
-	private final UserDetailsServiceImpl userDetailsServiceImpl;
+	private final CustomUserDetailsService userDetailsServiceImpl;
 	
-	public SecurityConfiguration (UserDetailsServiceImpl userDetailsServiceImpl) {
+	public SecurityConfiguration (CustomUserDetailsService userDetailsServiceImpl) {
 		this.userDetailsServiceImpl = userDetailsServiceImpl;
 	}
 		

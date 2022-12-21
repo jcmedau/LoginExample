@@ -16,6 +16,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 	
+	/**
+	 * Returns a UserRole found by its name
+	 * @param name
+	 * @return UserRole
+	 */
 	@Query("SELECT r FROM UserRole r WHERE r.role = ?1")
 	UserRole findByName (String name);
 }

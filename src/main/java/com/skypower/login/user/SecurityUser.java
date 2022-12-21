@@ -56,12 +56,4 @@ public class SecurityUser implements UserDetails {
 	public boolean isEnabled() {
 		return user.getIsEnabled();
 	}
-
-	@Override
-	public String toString() {
-		return "SecurityUser [user=" + user + ", getAuthorities()=" + getAuthorities() + ", getPassword()="
-				+ getPassword() + ", getUsername()=" + getUsername() + ", isAccountNonExpired()="
-				+ isAccountNonExpired() + ", isAccountNonLocked()=" + isAccountNonLocked()
-				+ ", isCredentialsNonExpired()=" + isCredentialsNonExpired() + ", isEnabled()=" + isEnabled() + "]";
-	}
 }

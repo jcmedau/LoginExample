@@ -22,19 +22,34 @@ public class UserRoleService {
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 	
-	public void save(UserRole userRole) {
-		userRoleRepository.save(userRole);
+	/**
+	 * @return the number of UserRoles in the database
+	 */
+	public Long count() {
+		return userRoleRepository.count();
 	}
 	
-	public UserRole findByName (String name) {
-		return userRoleRepository.findByName(name);
-	}
-	
+	/**
+	 * @return a List<UserRole> with all UserRole objects in the database
+	 */
 	public List<UserRole> findAll() {
 		return userRoleRepository.findAll(Sort.by(Direction.ASC, "role"));
 	}
 	
-	public Long count() {
-		return userRoleRepository.count();
+	/**
+	 * 
+	 * @param name
+	 * @return a UseRole found by its name
+	 */
+	public UserRole findByName (String name) {
+		return userRoleRepository.findByName(name);
+	}
+	
+	/**
+	 * Saves a UserRole to the database
+	 * @param userRole
+	 */
+	public void save(UserRole userRole) {
+		userRoleRepository.save(userRole);
 	}
 }
