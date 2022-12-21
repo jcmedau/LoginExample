@@ -20,5 +20,5 @@ public interface UserRepository extends JpaRepository <User, Long> {
 	
 	@Query ("SELECT u FROM User u WHERE u.email = ?1 AND u.isEnabled = true AND u.expiryDate >= CURRENT_DATE")
 	Optional<User> findActiveUser (String email);
-
+		
 }

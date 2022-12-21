@@ -3,6 +3,8 @@ package com.skypower.login.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +30,9 @@ public class UserService {
 		return userRepository.findActiveUser(email).get();
 	}	
 	
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public List<User> findAll(String column) {
+		if (column == null) column = "firstName";
+		return userRepository.findAll(Sort.by(Direction.ASC, column));
 	}
 	
 	public void save (User user) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin</title>
@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>This page is for admins only!</h1>
-<p>List all <a href="/admin/allUsers">System Users</a></p>
+<p>List all <a th:href="@{/admin/allUsers(column='firstName')}"> Users</a></p>
+<p>Insert a new <a href="/admin/insert">System User</a></p>
 <p>Click <a href="/">here</a> to return to home page.</p>
 </body>
 </html>

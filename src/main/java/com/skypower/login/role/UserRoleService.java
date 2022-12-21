@@ -1,5 +1,7 @@
 package com.skypower.login.role;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,13 @@ public class UserRoleService {
 	
 	public UserRole findByName (String name) {
 		return userRoleRepository.findByName(name);
+	}
+	
+	public List<UserRole> findAll() {
+		return userRoleRepository.findAll();
+	}
+	
+	public Long count() {
+		return userRoleRepository.count();
 	}
 }
