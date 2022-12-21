@@ -26,21 +26,29 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	public User findByEmail (String email) {
-		return userRepository.findActiveUser(email).get();
+	public Long count() {
+		return userRepository.count();
 	}	
+	
+	public void delete (Long id) {
+		userRepository.deleteById(id);
+	}
 	
 	public List<User> findAll(String column) {
 		if (column == null) column = "firstName";
 		return userRepository.findAll(Sort.by(Direction.ASC, column));
 	}
 	
+	public User findByEmail (String email) {
+		return userRepository.findActiveUser(email).get();
+	}
+	
+	public User findById (Long id) {
+		return userRepository.findById(id).get();
+	}	
+	
 	public void save (User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
-	}	
-	
-	public Long count() {
-		return userRepository.count();
 	}
 }

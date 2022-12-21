@@ -84,6 +84,10 @@ public class User implements Serializable {
 		this.expiryDate = expiryDate;
 	}
 	
+	public boolean hasRole (UserRole role) {
+		return roles.contains(role);
+	}
+	
 	public void addRole(UserRole role) {
 		roles.add(role);
 	}

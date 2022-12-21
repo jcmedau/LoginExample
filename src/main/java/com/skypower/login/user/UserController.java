@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +49,7 @@ public class UserController {
 
 	@GetMapping("admin/insert")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String showForm (Model model) {
+	public String showCreateForm (Model model) {
 		User user = new User();
 		Boolean[] hasRoles = new Boolean[userRoleService.count().intValue()];
 		Arrays.fill(hasRoles, false);
@@ -73,8 +75,49 @@ public class UserController {
 		userService.save(user);
 		return "redirect:/admin/allUsers";
 	}
+		
+	/*
+	 * The next two methods are responsible for the user update in the database
+	 */
 	
+	@GetMapping("admin/update/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String showUpdateForm (@PathVariable("userId") Long id, Model model) {
+		User user = userService.findById(id);
+		List<UserRole> allRoles = userRoleService.findAll();
+		Boolean[] hasRoles = new Boolean[userRoleService.count().intValue()];
+		
+		for (int i = 0; i < allRoles.size(); i ++) {
+			hasRoles[i] = user.hasRole(allRoles.get(i));
+		}
+		user.setHasEachRole(hasRoles);
+		model.addAttribute("user", user);
+		model.addAttribute("allRoles", allRoles);
+		
+		return "admin/update_user.html";
+	}
 	
+	@PostMapping ("admin/update/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String doUpdate(@ModelAttribute("user") User user) {
+		List<UserRole> allRoles = userRoleService.findAll();
+		for (int i = 0; i < allRoles.size(); i ++) {
+			if (user.getHasEachRole()[i] != null) {
+				user.addRole(allRoles.get(i));
+			}
+		}
+		userService.save(user);
+		return "redirect:/admin/allUsers";
+	}
 	
-	
+	/*
+	 * This method deletes a pilot from the database
+	 */
+
+	@GetMapping("/admin/delete/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String delete (@PathVariable("userId") Long id) {
+		userService.delete(id);
+		return "redirect:/admin/allUsers";
+	}
 }
