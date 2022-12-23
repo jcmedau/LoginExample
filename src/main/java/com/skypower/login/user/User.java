@@ -20,6 +20,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -29,7 +31,7 @@ import jakarta.persistence.Transient;
  * @author J. C. Medau
  * @version 1.0
  */
-
+@Data
 @Entity
 @Table (name = "users")
 public class User implements Serializable {
@@ -61,9 +63,14 @@ public class User implements Serializable {
 	
 	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable (name = "users_roles", 
-	joinColumns = @JoinColumn (name = "user_id"),
-	inverseJoinColumns = @JoinColumn (name = "role_id"))
+		joinColumns = @JoinColumn (name = "user_id"),
+		inverseJoinColumns = @JoinColumn (name = "role_id"))
 	private List<UserRole> roles;
+	
+	/*
+	 * This array is used during user update to maintain the assigned roles to the User.
+	 * It is not persisted into the database.
+	 */
 	
 	@Transient
 	private Boolean[] hasEachRole;
@@ -84,91 +91,30 @@ public class User implements Serializable {
 		this.expiryDate = expiryDate;
 	}
 	
+	/**
+	 * @return true if the User has a certain UserRole; false otherwise
+	 * @param The UserRole to be checked
+	 */
 	public boolean hasRole (UserRole role) {
 		return roles.contains(role);
 	}
 	
+	/**
+	 * Add a UserRole to the User's list
+	 * @param The UserRole to be added.
+	 */
 	public void addRole(UserRole role) {
 		roles.add(role);
 	}
 
+	/**
+	 * @return a String with all UserRoles separated by comma to be displayed in a interface page.
+	 */
 	public String getAllRoles() {
 		StringBuffer sb = new StringBuffer();
 		for (UserRole userRole : roles) {
-			sb.append(userRole.getRole() + " ");
+			sb.append(userRole.getDisplay() + " ");
 		}
 		return sb.toString().trim().replace(" " , ", ");
-	}
-
-	public String getEmail() {
-		return email;
-	}
-	
-	public Date getExpiryDate() {
-		return expiryDate;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public Boolean[] getHasEachRole() {
-		return hasEachRole;
-	}
-
-	public Boolean getIsEnabled() {
-		return isEnabled;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public List<UserRole> getRoles() {
-		return roles;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setHasEachRole(Boolean[] hasEachRole) {
-		this.hasEachRole = hasEachRole;
-	}
-
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setRoles(List<UserRole> roles) {
-		this.roles = roles;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 }

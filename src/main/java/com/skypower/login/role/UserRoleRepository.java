@@ -1,5 +1,7 @@
 package com.skypower.login.role;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,10 +19,10 @@ import org.springframework.stereotype.Repository;
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 	
 	/**
-	 * Returns a UserRole found by its name
-	 * @param name
+	 * Returns an Optional with the UserRole found by its name
+	 * @param roleName
 	 * @return UserRole
 	 */
-	@Query("SELECT r FROM UserRole r WHERE r.role = ?1")
-	UserRole findByName (String name);
+	@Query("SELECT r FROM UserRole r WHERE r.roleName = ?1")
+	Optional<UserRole> findByName (String name);
 }

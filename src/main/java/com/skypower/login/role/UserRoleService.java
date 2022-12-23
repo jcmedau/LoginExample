@@ -7,6 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.skypower.login.exception.UserRoleNotFoundException;
+
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
  *
@@ -33,16 +35,18 @@ public class UserRoleService {
 	 * @return a List<UserRole> with all UserRole objects in the database
 	 */
 	public List<UserRole> findAll() {
-		return userRoleRepository.findAll(Sort.by(Direction.ASC, "role"));
+		return userRoleRepository.findAll(Sort.by(Direction.ASC, "roleName"));
 	}
 	
 	/**
 	 * 
 	 * @param name
-	 * @return a UseRole found by its name
+	 * @return a UserRole found by its name or throws and @Code UserRoleNotFoundException if the UserRole does not
+	 * exist in the database
 	 */
 	public UserRole findByName (String name) {
-		return userRoleRepository.findByName(name);
+		return userRoleRepository.findByName(name)
+				 .orElseThrow(() -> new UserRoleNotFoundException("Role not found: " + name));
 	}
 	
 	/**

@@ -36,6 +36,9 @@ public class UserController {
 	@Autowired
 	private UserRoleService userRoleService;
 
+	/**
+	 * Displays the pages showing a list of all Users
+	 */
 	@GetMapping("/admin/allUsers")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String showAllUsers(@RequestParam(value = "column", required = false) String column, Model model) {
@@ -126,8 +129,7 @@ public class UserController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String doReset(@ModelAttribute("user") User user) {
 		String newPassword = user.getPassword();
-		Long id = user.getUserId();
-		User retrievedUser = userService.findById(id);
+		User retrievedUser = userService.findById(user.getUserId());
 		retrievedUser.setPassword(newPassword);
 		userService.encodePasswordAndSave(retrievedUser);
 		return "redirect:/admin/allUsers";

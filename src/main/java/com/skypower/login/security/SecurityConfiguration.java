@@ -72,7 +72,7 @@ public class SecurityConfiguration {
     @Bean
     PasswordEncoder passwordEncoder() {
     	return new BCryptPasswordEncoder();
-//    	return NoOpPasswordEncoder.getInstance();	// switch lines comments to use non-encrypted passwords in the database
+//    	return NoOpPasswordEncoder.getInstance();	// switch lines to use non-encrypted passwords in the database
     }
 }
 

@@ -28,9 +28,7 @@ public class MyTests {
 		Role[] allRoles = Role.values();
 		for (Role role : allRoles) {
 			if (userRoleService.findByName(role.name()) == null) {
-				UserRole user = new UserRole();
-				user.setRole(role.name());
-				userRoleService.save(user);
+				userRoleService.save(new UserRole(role));
 			}
 		}
 	}

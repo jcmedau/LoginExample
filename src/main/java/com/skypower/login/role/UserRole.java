@@ -6,12 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -22,7 +22,9 @@ import jakarta.persistence.Table;
  * @version 1.0
  */
 
+@Data
 @Entity
+@RequiredArgsConstructor
 @Table(name = "roles")
 public class UserRole implements GrantedAuthority, Serializable {
 
@@ -34,67 +36,33 @@ public class UserRole implements GrantedAuthority, Serializable {
 	private Long roleId;
 
 	@Column (name = "role_name", length = 20, unique = true, nullable = false)
-	private String role;
+	private String roleName;
 	
-	/**
-	 * No arguments constructor
+	/*
+	 * The display property is a String representation of the Role in a human readable format
 	 */
-	public UserRole() {
-		
+	@Column (length = 30)
+	private String display;
+	
+	public UserRole (Role role) {
+		this.roleName = role.name();
+		this.display = role.getDisplay();
 	}
-
+		
 	/**
-	 * Constructor
-	 * @param String representing the Role
-	 */
-	public UserRole (String role) {
-		this.role = role;
-	}	
-	
-	/**
-	 * This method overrides the {@code getAuthority()} method from the
-	 * {@code GRantedAuthority} Interface
+	 * This method overrides the @Code getAuthority() method from the @Code GrantedAuthority Interface
 	 */
 	@Override
 	public String getAuthority() {
-		return role;
+		return roleName;
 	}
 
 	/**
-	 * @return the UserRole id
-	 */
-	public Long getId() {
-		return roleId;
-	}
-
-	/**
-	 * @return the Role name
-	 */
-	public String getRole() {
-		return role;
-	}
-	
-	/**
-	 * Set the UserRole id
-	 * @param id
-	 */
-	public void setId(Long id) {
-		this.roleId = id;
-	}
-
-	/**
-	 * Set the UserRole name
-	 * @param role
-	 */
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	/**
-	 * Return a String representation of the UserRole
+	 *  
+	 * @return a String representation of the UserRole
 	 */
 	@Override
 	public String toString() {
-		return role;
+		return roleName;
 	}
 }

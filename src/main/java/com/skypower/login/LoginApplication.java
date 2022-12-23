@@ -32,9 +32,8 @@ public class LoginApplication {
 	}
 
 	/**
-	 * This Bean is responsible for creating all Roles and a first ADMIN User during
-	 * system deployment on an empty database. This User must be used for the
-	 * creation of a real Administrator and deleted afterwards.
+	 * This Bean is responsible for creating all Roles and a first ADMIN User during system deployment on an empty 
+	 * database. This User must be used for the creation of a real Administrator and deleted afterwards.
 	 */
 
 	@Bean
@@ -43,13 +42,15 @@ public class LoginApplication {
 			if (roleService.count() == 0) {
 				Role[] allRoles = Role.values();
 				for (Role role : allRoles) {
-					UserRole userRole = new UserRole();
-					userRole.setRole(role.name());
-					roleService.save(userRole);
+					roleService.save(new UserRole(role));
 				}
-				userService.encodePasswordAndSave(new User("Super", "Administrator", "456", "sudo", true, 
-						roleService.findByName(Role.ADMIN.name()),
-						Date.valueOf(LocalDate.now())));
+				userService.encodePasswordAndSave(new User("Super", 
+																		 "Administrator", 
+																		 "456", 
+																		 "sudo", 
+																		 true, 
+																		 roleService.findByName(Role.ADMIN.name()),
+																		 Date.valueOf(LocalDate.now())));
 			}
 		};
 	}

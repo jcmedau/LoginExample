@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository <User, Long> {
 	
 	/**
 	 * @param email
-	 * @return an Optional with the User retrived by its email (used as username) as long it is active and not expired
+	 * @return an Optional with the User retrieved by its email (used as username) as long it is active and not expired
 	 */
 	@Query ("SELECT u FROM User u WHERE u.email = ?1 AND u.isEnabled = true AND u.expiryDate >= CURRENT_DATE")
 	Optional<User> findActiveUser (String email);
