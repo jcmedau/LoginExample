@@ -27,10 +27,10 @@ import com.skypower.login.user.CustomUserDetailsService;
 @EnableMethodSecurity	// this line is required to enable @PreAuthorize on the Controller methods 
 public class SecurityConfiguration {
 			
-	private final CustomUserDetailsService userDetailsServiceImpl;
+	private final CustomUserDetailsService customUserDetailsService;
 	
-	public SecurityConfiguration (CustomUserDetailsService userDetailsServiceImpl) {
-		this.userDetailsServiceImpl = userDetailsServiceImpl;
+	public SecurityConfiguration (CustomUserDetailsService customUserDetailsService) {
+		this.customUserDetailsService = customUserDetailsService;
 	}
 		
 	/**
@@ -59,7 +59,7 @@ public class SecurityConfiguration {
     		        .deleteCookies("JSESSIONID")
     		        .invalidateHttpSession(true)
     			.and()   
-    				.userDetailsService(userDetailsServiceImpl)
+    				.userDetailsService(customUserDetailsService)
     				.httpBasic(Customizer.withDefaults())    			
     			.build();
     }

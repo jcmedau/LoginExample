@@ -39,7 +39,7 @@
 			
 			
 			<th:block th:each="role, i : ${allRoles}">
-				<label th:text="${role.getRole()}">Role</label>
+				<label th:text="${role.getDisplay()}">Role</label>
 				
 <!-- 				the array index needs t be i - 1 because Tymeleaf array count starts at 1 -->
 				

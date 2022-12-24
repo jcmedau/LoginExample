@@ -3,7 +3,6 @@ package com.skypower.login.user;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +28,14 @@ import com.skypower.login.role.UserRoleService;
 
 @Controller
 public class UserController {
-	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private UserRoleService userRoleService;
+		
+	private final UserService userService;
+	private final UserRoleService userRoleService;
+
+	public UserController(UserService userService, UserRoleService userRoleService) {
+		this.userService = userService;
+		this.userRoleService = userRoleService;
+	}
 
 	/**
 	 * Displays the pages showing a list of all Users

@@ -2,7 +2,6 @@ package com.skypower.login.role;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,12 @@ import com.skypower.login.exception.UserRoleNotFoundException;
 @Service
 public class UserRoleService {
 
-	@Autowired
-	private UserRoleRepository userRoleRepository;
-	
+	private final UserRoleRepository userRoleRepository;
+		
+	public UserRoleService(UserRoleRepository userRoleRepository) {
+		this.userRoleRepository = userRoleRepository;
+	}
+
 	/**
 	 * @return the number of UserRoles in the database
 	 */

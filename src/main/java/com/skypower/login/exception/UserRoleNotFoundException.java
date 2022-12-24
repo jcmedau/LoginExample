@@ -9,6 +9,7 @@ package com.skypower.login.exception;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class UserRoleNotFoundException extends RuntimeException {
 	
 	public UserRoleNotFoundException (String message) {

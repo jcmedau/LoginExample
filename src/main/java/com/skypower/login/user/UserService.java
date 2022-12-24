@@ -2,7 +2,6 @@ package com.skypower.login.user;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,13 +19,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-
-	@Autowired
+	
 	private UserRepository userRepository;
-		
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	/**
 	 * @return the number of Users in the database
 	 */

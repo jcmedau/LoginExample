@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @RequiredArgsConstructor
 @Table(name = "roles")
-public class UserRole implements GrantedAuthority, Serializable {
+public class UserRole implements GrantedAuthority, Serializable, Comparable<UserRole> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,6 +63,18 @@ public class UserRole implements GrantedAuthority, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return roleName;
+		return display;
+	}
+	
+	/**
+	 * Compares the UserRole with another instance based on the alphabetical order of the display property
+	 
+	 * @param   anotherRole the object to be compared.
+    * @return  a negative integer, zero, or a positive integer as this object
+    *          is less than, equal to, or greater than the specified object.
+	 */
+	@Override
+	public int compareTo(UserRole anotherUserRole) {
+		return roleName.compareTo(anotherUserRole.getRoleName());
 	}
 }

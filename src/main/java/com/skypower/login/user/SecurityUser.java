@@ -16,9 +16,10 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class SecurityUser implements UserDetails {
 	
-	private User user;
+	private final User user;
 	
 	public SecurityUser (User user) {
 		this.user = user;	
@@ -60,7 +61,7 @@ public class SecurityUser implements UserDetails {
 	 */
 	@Override
 	public boolean isAccountNonExpired() {
-		return user.getExpiryDate().after(Date.valueOf(LocalDate.now()));
+		return !Date.valueOf(LocalDate.now()).after(user.getExpiryDate());
 	}
 
 	/**

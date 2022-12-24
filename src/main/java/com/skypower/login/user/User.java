@@ -3,6 +3,7 @@ package com.skypower.login.user;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.skypower.login.role.UserRole;
@@ -21,7 +22,6 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
  * @author J. C. Medau
  * @version 1.0
  */
+
 @Data
 @Entity
 @Table (name = "users")
@@ -111,10 +112,6 @@ public class User implements Serializable {
 	 * @return a String with all UserRoles separated by comma to be displayed in a interface page.
 	 */
 	public String getAllRoles() {
-		StringBuffer sb = new StringBuffer();
-		for (UserRole userRole : roles) {
-			sb.append(userRole.getDisplay() + " ");
-		}
-		return sb.toString().trim().replace(" " , ", ");
+		return roles.toString().replaceAll("[\\[\\]]", "");
 	}
 }
