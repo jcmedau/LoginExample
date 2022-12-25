@@ -9,6 +9,8 @@ package com.skypower.login.role;
  * @version 1.0
  */
 
+// GIT test
+
 public enum Role {
 	
 	ADMIN ("Admin"),
@@ -19,9 +21,9 @@ public enum Role {
 	SCHEDULE ("Schedule"),
 	;
 	
-	String display;
+	final String display;
 	
-	private Role (String display) {
+	Role (String display) {
 		this.display = display;
 	}
 	
