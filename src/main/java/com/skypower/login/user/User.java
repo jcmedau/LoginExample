@@ -18,6 +18,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ import java.util.List;
 @Table (name = "users")
 public class User implements UserDetails, Serializable {
 
+   @Serial
    private static final long serialVersionUID = 1L;
 
    @Id

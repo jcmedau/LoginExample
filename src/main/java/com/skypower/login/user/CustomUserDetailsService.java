@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 	
-	final UserRepository userRepository;
+	final UserService userService;
 	
-	public CustomUserDetailsService(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public CustomUserDetailsService(UserService userService) {
+		this.userService = userService;
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		 return userRepository.findActiveUser(username)
+		 return userService.findActiveUser(username)
 				 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
 	}
 }

@@ -1,17 +1,14 @@
 package com.skypower.login.security;
 
+import com.skypower.login.user.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import com.skypower.login.user.CustomUserDetailsService;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -62,17 +59,6 @@ public class SecurityConfiguration {
     				.userDetailsService(customUserDetailsService)
     				.httpBasic(Customizer.withDefaults())    			
     			.build();
-    }
-    
-    /**
-     * This PasswordEncoder is used to login and also to encrypt the password before saving the user to the database.
-     * The UserService class uses it.
-     */
-       
-    @Bean
-    PasswordEncoder passwordEncoder() {
-    	return new BCryptPasswordEncoder();
-//    	return NoOpPasswordEncoder.getInstance();	// switch lines to use non-encrypted passwords in the database
     }
 }
 
