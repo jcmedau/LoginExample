@@ -1,7 +1,19 @@
 package com.skypower.login.user;
 
 import com.skypower.login.role.UserRole;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,9 +71,7 @@ public class User implements UserDetails, Serializable {
 
    /*
     * This array is used during user update to maintain the assigned roles to the User.
-    * It is not persisted into the database.
     */
-
    @Transient
    private Boolean[] hasEachRole;
 
