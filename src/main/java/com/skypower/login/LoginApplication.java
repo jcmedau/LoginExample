@@ -37,18 +37,20 @@ public class LoginApplication {
 	 */
 
 	@Bean
-	CommandLineRunner commandLineRunner(UserService userService, UserRoleService roleService, PasswordEncoder encoder) {
+	CommandLineRunner commandLineRunner(UserService userService,
+										UserRoleService roleService,
+										PasswordEncoder encoder) {
 		return args -> {
 			if (roleService.count() == 0) {
 				Role[] allRoles = Role.values();
 				for (Role role : allRoles) {
 					roleService.save(new UserRole(role));
 				}
-				userService.encodePasswordAndSave(new User("Super", 
-																		 "Administrator", 
-																		 "456", 
-																		 "sudo", 
-																		 true, 
+				userService.encodePasswordAndSave(new User("Super",
+																		 "Administrator",
+																		 "456",
+																		 "sudo",
+																		 true,
 																		 roleService.findByName(Role.ADMIN.name()),
 																		 Date.valueOf(LocalDate.now())));
 			}
