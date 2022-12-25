@@ -3,10 +3,14 @@ package com.skypower.login.user;
 import com.skypower.login.role.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,7 +25,7 @@ import java.util.List;
 @Data
 @Entity
 @Table (name = "users")
-public class User implements Serializable {
+public class User implements UserDetails, Serializable {
 
    private static final long serialVersionUID = 1L;
 
@@ -77,28 +81,48 @@ public class User implements Serializable {
       this.expiryDate = expiryDate;
    }
 
-   /**
-    * @param The UserRole to be checked
-    * @return true if the User has a certain UserRole; false otherwise
-    */
    public boolean hasRole (UserRole role) {
       return roles.contains (role);
    }
 
-   /**
-    * Add a UserRole to the User's list
-    *
-    * @param The UserRole to be added.
-    */
    public void addRole (UserRole role) {
       roles.add (role);
    }
 
    /**
-    * @return a String with all UserRoles separated by comma to be displayed in a interface page.
-    * The regular expression [\\[\\]] is used to eliminate the brackets for a better view.
+    * The regular expression [\[\]] removes the [ ] for a better view of the String
     */
    public String getAllRoles () {
       return roles.toString ().replaceAll ("[\\[\\]]", "");
+   }
+
+   @Override
+   public Collection<? extends GrantedAuthority> getAuthorities () {
+      return getRoles ();
+   }
+
+   @Override
+   public String getUsername () {
+      return email;
+   }
+
+   @Override
+   public boolean isAccountNonExpired () {
+      return ! Date.valueOf (LocalDate.now ()).after (getExpiryDate ());
+   }
+
+   @Override
+   public boolean isAccountNonLocked () {
+      return isEnabled ();
+   }
+
+   @Override
+   public boolean isCredentialsNonExpired () {
+      return isAccountNonExpired ();
+   }
+
+   @Override
+   public boolean isEnabled () {
+      return isEnabled;
    }
 }
