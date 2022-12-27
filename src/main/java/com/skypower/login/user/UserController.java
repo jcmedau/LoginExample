@@ -110,7 +110,7 @@ public class UserController {
 				user.addRole(allRoles.get(i));
 			}
 		}
-		userService.saveOnly(user);
+		userService.save (user);
 		return "redirect:/admin/allUsers";
 	}
 	

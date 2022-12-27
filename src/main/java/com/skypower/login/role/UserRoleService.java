@@ -1,12 +1,11 @@
 package com.skypower.login.role;
 
-import java.util.List;
-
+import com.skypower.login.exception.UserRoleNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.skypower.login.exception.UserRoleNotFoundException;
+import java.util.List;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.

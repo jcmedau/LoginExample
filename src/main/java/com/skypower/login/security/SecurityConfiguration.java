@@ -1,12 +1,12 @@
 package com.skypower.login.security;
 
-import com.skypower.login.user.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -24,10 +24,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity	// this line is required to enable @PreAuthorize on the Controller methods 
 public class SecurityConfiguration {
 			
-	private final CustomUserDetailsService customUserDetailsService;
+	private final UserDetailsService userService;
 	
-	public SecurityConfiguration (CustomUserDetailsService customUserDetailsService) {
-		this.customUserDetailsService = customUserDetailsService;
+	public SecurityConfiguration (UserDetailsService userService) {
+		this.userService = userService;
 	}
 		
 	/**
@@ -56,7 +56,7 @@ public class SecurityConfiguration {
     		        .deleteCookies("JSESSIONID")
     		        .invalidateHttpSession(true)
     			.and()   
-    				.userDetailsService(customUserDetailsService)
+    				.userDetailsService(userService)
     				.httpBasic(Customizer.withDefaults())    			
     			.build();
     }

@@ -2,12 +2,13 @@ package com.skypower.login.user;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -19,7 +20,7 @@ import java.util.Optional;
  */
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
    private UserRepository userRepository;
    private PasswordEncoder passwordEncoder;
@@ -30,21 +31,13 @@ public class UserService {
       this.passwordEncoder = passwordEncoder;
    }
 
-   public Long count () {
-      return userRepository.count ();
-   }
-
    public void delete (Long id) {
       userRepository.deleteById (id);
    }
 
    public void encodePasswordAndSave (User user) {
       user.setPassword (passwordEncoder.encode (user.getPassword ()));
-      saveOnly (user);
-   }
-
-   public Optional<User> findActiveUser (String username) {
-      return userRepository.findActiveUser (username);
+      save (user);
    }
 
    public List<User> findAll (String column) {
@@ -52,17 +45,18 @@ public class UserService {
       return userRepository.findAll (Sort.by (Direction.ASC, column));
    }
 
-   public User findByEmail (String email) {
-      return userRepository.findActiveUser (email)
-            .orElseThrow (() -> new UsernameNotFoundException ("User not found " + email));
-   }
-
    public User findById (Long id) {
       return userRepository
             .findById (id).orElseThrow (() -> new UsernameNotFoundException ("User not found " + id));
    }
 
-   public void saveOnly (User user) {
+   @Override
+   public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
+      return userRepository.findActiveUser(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
+   }
+
+   public void save (User user) {
       userRepository.save (user);
    }
 }
