@@ -1,19 +1,17 @@
 package com.skypower.login;
 
-import java.sql.Date;
-import java.time.LocalDate;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.skypower.login.role.Role;
 import com.skypower.login.role.UserRole;
 import com.skypower.login.role.UserRoleService;
 import com.skypower.login.user.User;
 import com.skypower.login.user.UserService;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -32,18 +30,17 @@ public class LoginApplication {
 	}
 
 	/**
-	 * This Bean is responsible for creating all Roles and a first ADMIN User during system deployment on an empty 
-	 * database. This User must be used for the creation of a real Administrator and deleted afterwards.
+	 * This Bean is responsible for creating all Roles and a first ADMIN User during system
+	 * deployment on an empty database. This User must be used for the creation of a real
+	 * Administrator and deleted afterwards.
 	 */
 
 	@Bean
 	CommandLineRunner commandLineRunner(UserService userService,
-										UserRoleService roleService,
-										PasswordEncoder encoder) {
+													UserRoleService roleService) {
 		return args -> {
 			if (roleService.count() == 0) {
-				Role[] allRoles = Role.values();
-				for (Role role : allRoles) {
+				for (Role role : Role.values()) {
 					roleService.save(new UserRole(role));
 				}
 				userService.encodePasswordAndSave(new User("Super",

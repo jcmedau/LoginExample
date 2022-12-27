@@ -1,8 +1,7 @@
 package com.skypower.login.user;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.skypower.login.role.UserRole;
+import com.skypower.login.role.UserRoleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.skypower.login.role.UserRole;
-import com.skypower.login.role.UserRoleService;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -42,7 +41,9 @@ public class UserController {
 	 */
 	@GetMapping("/admin/allUsers")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String showAllUsers(@RequestParam(value = "column", required = false) String column, Model model) {
+	public String showAllUsers(
+			@RequestParam(value = "column", required = false) String column,
+																			  Model model) {
 		model.addAttribute("users", userService.findAll(column));
 		return "/admin/all_users.html";
 	}
@@ -97,7 +98,6 @@ public class UserController {
 		user.setHasEachRole(hasRoles);
 		model.addAttribute("user", user);
 		model.addAttribute("allRoles", allRoles);
-		
 		return "admin/update_user.html";
 	}
 	

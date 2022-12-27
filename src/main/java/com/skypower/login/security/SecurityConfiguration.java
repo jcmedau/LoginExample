@@ -29,13 +29,7 @@ public class SecurityConfiguration {
 	public SecurityConfiguration (UserDetailsService userService) {
 		this.userService = userService;
 	}
-		
-	/**
-	 * This Bean configures login with a custom form, logout with a custom page and free access to
-	 * the home page index.html
-	 *
-	 */
-	
+
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
     	return http

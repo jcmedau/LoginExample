@@ -1,9 +1,5 @@
 package com.skypower.login.role;
 
-import java.io.Serializable;
-
-import org.springframework.security.core.GrantedAuthority;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.io.Serializable;
 
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
@@ -24,8 +23,8 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
-@RequiredArgsConstructor
 @Table(name = "roles")
+@NoArgsConstructor
 public class UserRole implements GrantedAuthority, Serializable, Comparable<UserRole> {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +38,7 @@ public class UserRole implements GrantedAuthority, Serializable, Comparable<User
 	private String roleName;
 	
 	/*
-	 * The display property is a String representation of the Role in a human readable format
+	 * The display property is a String representation of the Role in a human-readable format
 	 */
 	@Column (length = 30)
 	private String display;
@@ -48,31 +47,17 @@ public class UserRole implements GrantedAuthority, Serializable, Comparable<User
 		this.roleName = role.name();
 		this.display = role.getDisplay();
 	}
-		
-	/**
-	 * This method overrides the @Code getAuthority() method from the @Code GrantedAuthority Interface
-	 */
+
 	@Override
 	public String getAuthority() {
 		return roleName;
 	}
 
-	/**
-	 *  
-	 * @return a String representation of the UserRole
-	 */
 	@Override
 	public String toString() {
 		return display;
 	}
-	
-	/**
-	 * Compares the UserRole with another instance based on the alphabetical order of the display property
-	 
-	 * @param   anotherRole the object to be compared.
-    * @return  a negative integer, zero, or a positive integer as this object
-    *          is less than, equal to, or greater than the specified object.
-	 */
+
 	@Override
 	public int compareTo(UserRole anotherUserRole) {
 		return roleName.compareTo(anotherUserRole.getRoleName());

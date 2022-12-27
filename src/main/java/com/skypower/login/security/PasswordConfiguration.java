@@ -16,10 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class PasswordConfiguration {
 
-   /**
-    * This PasswordEncoder is used to login and also to encrypt the password before saving the user to the database.
-    * The UserService class uses it.
-    */
    @Bean
    PasswordEncoder passwordEncoder() {
       return new BCryptPasswordEncoder ();
