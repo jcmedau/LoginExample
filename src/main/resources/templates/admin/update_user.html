@@ -33,11 +33,7 @@
 			
 			<label>Active</label>
 			<input type="checkbox" th:field="*{isEnabled}" /><br/>
-			
-			<label>Expiry Date:</label>
-			<input type="date" th:field="*{expiryDate}" /><br/>
-			
-			
+
 			<th:block th:each="role, i : ${allRoles}">
 				<label th:text="${role.getDisplay()}">Role</label>
 				

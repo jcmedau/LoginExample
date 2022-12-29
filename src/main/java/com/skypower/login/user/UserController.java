@@ -98,6 +98,9 @@ public class UserController {
 		user.setHasEachRole(hasRoles);
 		model.addAttribute("user", user);
 		model.addAttribute("allRoles", allRoles);
+
+		System.out.println (user.getPassword ());
+
 		return "admin/update_user.html";
 	}
 	
@@ -110,6 +113,9 @@ public class UserController {
 				user.addRole(allRoles.get(i));
 			}
 		}
+
+		System.out.println (user.getPassword ());
+
 		userService.save (user);
 		return "redirect:/admin/allUsers";
 	}
@@ -137,7 +143,7 @@ public class UserController {
 	}
 	
 	/*
-	 * This method deletes a pilot from the database
+	 * This method deletes a user from the database
 	 */
 
 	@GetMapping("/admin/delete/{userId}")

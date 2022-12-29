@@ -10,12 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.sql.Date;
-import java.time.LocalDate;
-
 /**
  * Copyright 2022 J. C. Medau All rights reserved.
- * <p>
+ *
  * Main Class for the Login Example Application
  *
  * @author J. C. Medau
@@ -45,12 +42,11 @@ public class LoginApplication {
             }
             userService.encodePasswordAndSave (
 						new User ("Super",
-								"Administrator",
-								"456",
-								"sudo",
-								true,
-								roleService.findByName (Role.ADMIN.name ()),
-								Date.valueOf (LocalDate.now ())));
+                        "Administrator",
+                        "456",
+                        "sudo",
+                        true,
+                        roleService.findByName (Role.ADMIN.name ())));
          }
       };
    }

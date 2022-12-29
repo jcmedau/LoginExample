@@ -19,7 +19,6 @@
             <th align = "left"> <a th:href="@{/admin/allUsers(column='lastName')}"> Last Name</a> </th>
             <th align = "left"> <a th:href="@{/admin/allUsers(column='email')}"> Email</a> </th>
             <th align = "left"> Active</th>
-            <th align = "left"> Expiry Date</th>
             <th align = "left"> Roles</th>
         </tr>
     </thead>
@@ -33,7 +32,6 @@
             <td width = 150><span th:text="${u.getLastName()}"> Last Name </span></td>
             <td width = 150><span th:text="${u.getEmail()}"> Email </span></td>
             <td width = 60><span th:text="${u.getIsEnabled()}"> Active </span></td>
-            <td width = 120><span th:text="${u.getExpiryDate()}"> Expiry Date </span></td>
             <td width = 200><span th:text="${u.getAllRoles()}"> To </span></td>
             <td width = 45><span><a th:href="@{/admin/update/__${u.userId}__}">Edit</a></span></td>
             <td width = 120><span><a th:href="@{/admin/reset/__${u.userId}__}">Reset Password</a></span></td>

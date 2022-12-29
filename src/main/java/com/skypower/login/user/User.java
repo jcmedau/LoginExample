@@ -11,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,8 +18,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -62,9 +58,6 @@ public class User implements UserDetails, Serializable {
 
    private Boolean isEnabled;
 
-   @Temporal (TemporalType.DATE)
-   private Date expiryDate;
-
    @ManyToMany (fetch = FetchType.EAGER)
    @JoinTable (name = "users_roles",
          joinColumns = @JoinColumn (name = "user_id"),
@@ -82,7 +75,7 @@ public class User implements UserDetails, Serializable {
    }
 
    public User (String firstName, String lastName, String password, String email,
-                boolean isEnabled, UserRole role, Date expiryDate) {
+                boolean isEnabled, UserRole role) {
       this ();
       this.firstName = firstName;
       this.lastName = lastName;
@@ -90,7 +83,6 @@ public class User implements UserDetails, Serializable {
       this.email = email;
       this.isEnabled = isEnabled;
       addRole (role);
-      this.expiryDate = expiryDate;
    }
 
    public boolean hasRole (UserRole role) {
@@ -120,7 +112,7 @@ public class User implements UserDetails, Serializable {
 
    @Override
    public boolean isAccountNonExpired () {
-      return ! Date.valueOf (LocalDate.now ()).after (getExpiryDate ());
+      return isEnabled ();
    }
 
    @Override

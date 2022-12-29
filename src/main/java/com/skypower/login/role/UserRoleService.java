@@ -39,6 +39,6 @@ public class UserRoleService {
 	}
 
 	public void save(UserRole userRole) {
-		userRoleRepository.save(userRole);
+		userRoleRepository.save (userRole);
 	}
 }
