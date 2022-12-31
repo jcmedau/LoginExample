@@ -39,9 +39,11 @@ public class SecurityConfiguration {
     			})    		
     			.formLogin()
 					.loginPage("/login")
-					.permitAll()			
+					.permitAll()
+				   .defaultSuccessUrl("/success")
+//				.failureUrl("/error.html")
 				.and()
-				.formLogin(Customizer.withDefaults()) 
+//				.formLogin(Customizer.withDefaults())
     			    			
     			.logout() 
     		    	.clearAuthentication(true)

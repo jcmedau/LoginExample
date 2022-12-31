@@ -36,15 +36,21 @@ public class SecurityController {
 	 */
 	@GetMapping("/login")
 	public String doLogin() {
-		return "/login.html";
+		return "login.html";
 	}
-	
+
+	@GetMapping("/success")
+	public String welcome() {
+		return "success.html";
+	}
+
+
 	/**
 	 * Does the logout procedure
 	 */	
 	@GetMapping("/logout")
 	public String doLogout() {
-		return "/logout.html";
+		return "logout.html";
 	}
 	
 	/**
@@ -53,7 +59,7 @@ public class SecurityController {
 	@GetMapping("/welcome")
 	@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")	// does not work with "hasRole('USER')"
 	public String showWelcomePage() {
-		return "/user/welcome.html";
+		return "user/welcome.html";
 	}
 	
 	/**
@@ -62,6 +68,6 @@ public class SecurityController {
 	@GetMapping("/restricted")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String showRestrictedPage() {
-		return "/admin/restricted.html";
+		return "admin/restricted.html";
 	}
 }

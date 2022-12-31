@@ -45,7 +45,7 @@ public class UserController {
 			@RequestParam(value = "column", required = false) String column,
 																			  Model model) {
 		model.addAttribute("users", userService.findAll(column));
-		return "/admin/all_users.html";
+		return "admin/all_users.html";
 	}
 	
 	/*
@@ -98,9 +98,6 @@ public class UserController {
 		user.setHasEachRole(hasRoles);
 		model.addAttribute("user", user);
 		model.addAttribute("allRoles", allRoles);
-
-		System.out.println (user.getPassword ());
-
 		return "admin/update_user.html";
 	}
 	
@@ -113,9 +110,6 @@ public class UserController {
 				user.addRole(allRoles.get(i));
 			}
 		}
-
-		System.out.println (user.getPassword ());
-
 		userService.save (user);
 		return "redirect:/admin/allUsers";
 	}
