@@ -36,7 +36,7 @@ public class LoginApplication {
    CommandLineRunner commandLineRunner(UserService userService,
                                        UserRoleService roleService) {
       return args -> {
-         if (roleService.count () == 0) {
+         if (userService.count () == 0) {
             for (Role role : Role.values ()) {
                roleService.save (new UserRole (role));
             }

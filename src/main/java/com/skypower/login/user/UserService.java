@@ -31,6 +31,10 @@ public class UserService implements UserDetailsService {
       this.passwordEncoder = passwordEncoder;
    }
 
+   public Long count() {
+      return userRepository.count();
+   }
+
    public void delete (Long id) {
       userRepository.deleteById (id);
    }

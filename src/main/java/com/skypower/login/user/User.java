@@ -1,5 +1,6 @@
 package com.skypower.login.user;
 
+import com.skypower.login.role.Role;
 import com.skypower.login.role.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -72,6 +73,7 @@ public class User implements UserDetails, Serializable {
 
    public User () {
       this.roles = new ArrayList<UserRole> ();
+      hasEachRole = new Boolean[Role.values().length];
    }
 
    public User (String firstName, String lastName, String password, String email,
@@ -102,7 +104,7 @@ public class User implements UserDetails, Serializable {
 
    @Override
    public Collection<? extends GrantedAuthority> getAuthorities () {
-      return getRoles ();
+      return roles;
    }
 
    @Override
